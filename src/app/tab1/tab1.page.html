@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Current weather </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Current weather</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-input
+    class="city-field"
+    label="Enter City Name"
+    label-placement="floating"
+    fill="outline"
+    placeholder="Enter city"
+    [(ngModel)]="city"
+  ></ion-input>
+  <ion-button (click)="SearchWeather()">Search</ion-button>
+  <!-- <app-explore-container name="Tab 1 page"></app-explore-container> -->
+  <!-- <ion-card>
+    <img
+      alt="Silhouette of mountains"
+      src="https://ionicframework.com/docs/img/demos/card-media.png"
+    />
+    <ion-card-header>
+      <ion-card-title>{{ weatherData[0]['main'] }}</ion-card-title>
+      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      Here's a small text description for the card content. Nothing more,
+      nothing less.
+    </ion-card-content>
+  </ion-card> -->
+
+  <ion-card *ngIf="weatherData.main">
+    <ion-card-content>
+      <img
+        class="img"
+        [src]="getWeatherIconUrl(weatherData.weather[0].icon)"
+        alt="Weather Icon"
+      />
+      <h2>Weather Details</h2>
+      <p>Temperature: {{ weatherData.main.temp }}°C</p>
+      <p>Weather Description: {{ weatherData.weather[0].description }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <div *ngIf="isLoading">Loading weather data...</div>
+  <div *ngIf="error">Error fetching weather data: {{ error }}</div>
+</ion-content>

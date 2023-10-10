@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Forecast </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Forecast</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-input
+    class="city-field"
+    label="Enter City Name"
+    label-placement="floating"
+    fill="outline"
+    placeholder="Enter city"
+    [(ngModel)]="city"
+  ></ion-input>
+  <ion-button (click)="SearchWeather()">Search</ion-button>
+
+  <ion-card *ngFor="let forecast of weatherForecast.list">
+    <ion-card-header>
+      <ion-card-title>Date: {{ forecast.dt_txt }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Temperature: {{ forecast.main.temp }}°C</p>
+      <p>Description: {{ forecast.weather[0].description }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <div *ngIf="isLoading">Loading weather forecast...</div>
+  <div *ngIf="error">Error fetching weather forecast: {{ error }}</div>
+</ion-content>
